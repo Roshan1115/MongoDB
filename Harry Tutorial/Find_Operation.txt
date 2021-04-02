@@ -1,0 +1,25 @@
+// Searching data with filter in mongoDB
+
+// Below line will give all the objects whose price is 60,000
+db.items.find({Price: 60000})
+
+//This line will print the objects whose price is greated than or equal to  20,000
+db.items.find({Price: {$gte: 20000}})
+
+//This line will print the objects whose price is greated than 25,000
+db.items.find({Price: {$gt: 25000}})
+
+// And operator to filter multiple data members
+//This line will give the objects whose minimum price is 25000 and minimum quantity is 250.
+db.items.find({Price: {$gte: 25000}, Qty: {$gte: 250}})
+
+///This line will give the objects whose price is less than or equal to 30,000 and quantity is greater than or equal to 200
+db.items.find({Price: {$lte: 30000}, Qty: {$gte: 200}})
+
+// OR Operator 
+// find out the objects whose price is less than equal to 30000 or sold is greater than equal to 150.
+db.items.find({ $or: [  {Price: {$lte: 30000}}, {Sold: {$gte: 150}}    ]    })
+
+//We can pass parameter to find function to only print the desired data members. This parameter is called projection
+//print the oject whose Qty is minimum 150 and print its quantity only nothing else
+db.items.find({Qty: {$gte: 150}}, {Qty: 1})

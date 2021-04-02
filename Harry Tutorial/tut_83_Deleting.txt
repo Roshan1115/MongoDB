@@ -1,0 +1,9 @@
+// Deleting items is quite similar to inserting and Searching(parameter)
+// lets delete first item whose price is 30,000
+    db.items.deleteOne({Price: 30000})
+
+// inseting that item again
+    db.items.insertOne({name: 'Samsung 20s', Price: 30000, Qty: 244, Sold: 145})
+
+//Delete all the items whose price is 30,000
+    db.items.deleteMany({Price: 30000})

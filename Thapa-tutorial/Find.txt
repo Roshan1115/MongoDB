@@ -1,0 +1,72 @@
+db.collection_name.find(filter, projection)
+
+projection = this allow us to show which field to show and which to not show 
+
+for example the dbs name is "Roshan-Thapa"
+collection name is "firstCollection"
+..........................................................................................
+
+1.  Find all the document inside a collection
+db.firstCollection.find().pretty()
+{
+	"_id" : ObjectId("60657688574870bfcf420606"),
+	"name" : "Roshan",
+	"surname" : "Bishi"
+}
+{
+	"_id" : ObjectId("6065db357f876783594c5817"),
+	"name" : "Manish",
+	"surname" : "Prasad"
+}
+{
+	"_id" : ObjectId("6065db357f876783594c5818"),
+	"name" : "Bittu",
+	"surname" : "Dash"
+}
+{
+	"_id" : ObjectId("6066aa59a6f540cba4939caf"),
+	"name" : "Akash",
+	"surname" : "Nayak",
+	"active" : true
+}
+{
+	"_id" : ObjectId("6066aa59a6f540cba4939cb0"),
+	"name" : "Nikhil",
+	"surname" : "Kathar",
+	"active" : true
+}
+{
+	"_id" : ObjectId("6066aa59a6f540cba4939cb1"),
+	"name" : "Anshuman",
+	"surname" : "Seth",
+	"active" : true
+}
+
+
+2. find only document whose name is "Roshan"
+db.firstColletion.find({name: "Roshan"})
+
+
+3. find only document whose name is "Roshan" having only name field and _id
+db.firstColletion.find({name: "Roshan"}, {name: 1})
+
+
+4. find only document whose name is "Roshan" having only name field and without _id
+db.firstColletion.find({name: "Roshan"}, {_id: 0, name: 1})
+
+
+5. Find the name field of the all the document whose acivee is true 
+db.firstCollection.find({active: true}, {_id: 0, name: 1})
+
+
+6. Find the name field of the FIRST document whose acivee is true 
+db.firstCollection.find({active: true}, {_id: 0, name: 1}).limit(1)
+or
+db.firstCollection.findOne({active: true}, {_id: 0, name: 1})
+
+
+7. Find the name field of the SECOND document whose acivee is true 
+db.firstCollection.find({active: true}, {_id: 0, name: 1}).limit(1).skip(1)
+
+8. Find the name field of the all the document whose acivee is true except the first active true documment
+db.firstCollection.find({active: true}, {_id: 0, name: 1}).skip(1)

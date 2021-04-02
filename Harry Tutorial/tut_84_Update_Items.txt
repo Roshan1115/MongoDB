@@ -1,0 +1,14 @@
+// First lets insert the following items
+    db.items.insertOne({name: 'Samsung 20s', Price: 30000, Qty: 244, Sold: 145})
+    db.items.insertOne({name: 'Samsung 20s', Price: 30000, Qty: 244, Sold: 145, isBig: true})
+    db.items.insertOne({name: 'Realme', Price: 12000, Qty: 204, Sold: 178, isBig: true})
+
+// Create another colletion as OtherCollection by adding an object to that.
+    db.OtherCollection.insertOne({a: 12, b: 34, c: 635})
+
+// Updation : 
+// lets update the first object whose name is 'samsung 20s' and bring it's price to 2 
+    db.items.updateOne( {name: "Samsung 20s"}, {$set: {Price: 2}  }  )
+
+// lets update multiple with updateMany
+    db.items.updateMany({name: 'Samsung 20s'}, {$set: {Price: 402, Sold: 300}})

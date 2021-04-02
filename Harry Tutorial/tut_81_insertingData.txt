@@ -1,0 +1,11 @@
+// Inserting Data in database 
+use RoshanKart
+
+db.items.insertOne({name: 'Samsung 20s', Price: 30000, Qty: 244, Sold: 145})
+
+
+//Inserting Many object using array and 'many' funciton
+
+db.items.insertMany( [ {name: 'Samsung 20s', Price: 30000, Qty: 244, Sold: 145}, {name: 'OnePlus', Price: 25000, Qty: 300, Sold: 233}, {name: 'Iphone 11', Price: 60000, Qty: 100, Sold: 85}   ]   )
+
+db.items.insertOne({name: 'Nokia', Price: 10000, Qty: 2000, Sold: 789, isBig: true})

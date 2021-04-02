@@ -1,0 +1,46 @@
+db.collection_name.updateOne( filter, update) = update the first matching document
+db.collection_name.updateMany( filter, update) = update oll the matching document
+
+for example the dbs name is "Roshan-Thapa"
+collection name is "firstCollection"
+..........................................................................................
+db.firstCollection.find().pretty()
+{
+	"_id" : ObjectId("60657688574870bfcf420606"),
+	"name" : "Roshan",
+	"surname" : "Bishi"
+}
+{
+	"_id" : ObjectId("6065db357f876783594c5817"),
+	"name" : "Manish",
+	"surname" : "Prasad"
+}
+{
+	"_id" : ObjectId("6065db357f876783594c5818"),
+	"name" : "Bittu",
+	"surname" : "Dash"
+}
+{
+	"_id" : ObjectId("6066aa59a6f540cba4939caf"),
+	"name" : "Akash",
+	"surname" : "Nayak",
+	"active" : true
+}
+{
+	"_id" : ObjectId("6066aa59a6f540cba4939cb0"),
+	"name" : "Nikhil",
+	"surname" : "Kathar",
+	"active" : true
+}
+{
+	"_id" : ObjectId("6066aa59a6f540cba4939cb1"),
+	"name" : "Anshuman",
+	"surname" : "Seth",
+	"active" : true
+}
+
+1. update the surname "Bishi" to "Bishi Boy" for "Roshan"
+db.firstCollection.updateOne({name: "Roshan"},{$set: {surname: "Bishi Boy"}})
+
+2. set active false to all the active true document
+db.firstCollection.updateMany({active: true},  {$set: {active: false}})
