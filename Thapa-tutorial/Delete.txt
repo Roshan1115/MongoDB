@@ -1,0 +1,42 @@
+db.COLLECTION_NAME.deleteMany(deletion_criteria) = delete multiple files
+
+for example the dbs name is "Roshan-Thapa"
+collection name is "firstCollection"
+..........................................................................................
+db.firstCollection.find().pretty()
+{
+	"_id" : ObjectId("60657688574870bfcf420606"),
+	"name" : "Roshan",
+	"surname" : "Bishi Boy"
+}
+{
+	"_id" : ObjectId("6065db357f876783594c5817"),
+	"name" : "Manish",
+	"surname" : "Prasad"
+}
+{
+	"_id" : ObjectId("6065db357f876783594c5818"),
+	"name" : "Bittu",
+	"surname" : "Dash"
+}
+{
+	"_id" : ObjectId("6066aa59a6f540cba4939caf"),
+	"name" : "Akash",
+	"surname" : "Nayak",
+	"active" : false
+}
+{
+	"_id" : ObjectId("6066aa59a6f540cba4939cb0"),
+	"name" : "Nikhil",
+	"surname" : "Kathar",
+	"active" : false
+}
+{
+	"_id" : ObjectId("6066aa59a6f540cba4939cb1"),
+	"name" : "Anshuman",
+	"surname" : "Seth",
+	"active" : false
+}
+
+1. Delete document whose surname is "Prasad"
+db.firstCollection.deleteMany({surname: "Prasad"})
