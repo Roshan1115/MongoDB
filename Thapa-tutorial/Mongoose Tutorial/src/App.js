@@ -28,7 +28,43 @@ const playlistSchema = new mongoose.Schema({
     Active : Boolean
 })
 
-// a Mongoose model is a wrapper for the mongoose schema
 
+// a Mongoose model is a wrapper for the mongoose schema
 //create a class playlist below and this will be the collection named after an additional "s" by default
+
+//Creaete Collection
 const Playlist = new mongoose.model("Playlist", playlistSchema)
+
+
+// .................................................................. 
+//Create or insert document inside collection
+
+// const Song_1 = new Playlist({
+//     Name : 'Memories',
+//     Singer : "Maroon 5",
+//     Duration : 5,
+//     Active : true
+// })
+// .save() also returns a promise
+// Song_1.save();
+//.....................................................................
+
+
+// Instead of using promise the mordern technique ueses async await methode and below is the code for that
+const createDocument = async () => {
+    try{
+        const Song_1 = new Playlist({
+            Name : 'Memories',
+            Singer : "Maroon 5",
+            Duration : 5,
+            Active : true
+        })
+
+        const result = await Song_1.save();
+        console.log(result);
+    } 
+    catch(err){
+        console.log(err);
+    }
+}
+createDocument();
