@@ -118,18 +118,94 @@ const Playlist = new mongoose.model("Playlist", playlistSchema)
 
 
 
+//.....................................................................
 //Read Data
-const ReadDoc = async () => {
-    try{
-        const resData = await Playlist.find()
-        const res_AcFalseData = await Playlist.find({Active: false})
+// const ReadDoc = async () => {
+    //     try{
+        //         const resData = await Playlist.find()
+        //         const res_AcFalseData = await Playlist.find({Active: false})
         
-        console.log(resData);
-        console.log(res_AcFalseData);
-    }
-    catch(err){
-        console.log(err);
-    }
-}
-ReadDoc();
+        //         console.log(resData);
+        //         console.log(res_AcFalseData);
+        //     }
+        //     catch(err){
+//         console.log(err);
+//     }
+// }
+// ReadDoc();
+//.....................................................................
 
+
+
+
+//.....................................................................
+//Read Data with comparision data
+//suppose find the song whose duration is greater than or equal to 4.5min
+
+// const findSong = async () => {
+//     try{
+//         const res = await Playlist.find({Duration : {$gte: 4.6}    })
+//         console.log(res);
+//     }catch(err){
+//         console.log(err);
+//     }
+// }
+// findSong();
+//.....................................................................
+
+
+
+//.....................................................................
+// $in (in) and $nin operator
+
+//read data whose singer is either drake adn justien bieber
+
+// const showInOpt = async () => {
+//     try{
+//         const res = await Playlist.find({Singer:  {$in: ["Justin Beiber", "Drake"] }  })
+//         console.log(res);
+//     }catch(err){
+//         console.log(err);
+//     }
+// }
+// showInOpt();
+
+//Not in opt
+
+// const showNInOpt = async () => {
+//     try{
+//         const res = await Playlist.find({Singer:  {$nin: ["Justin Beiber", "Drake"] }  })
+//         console.log(res);
+//     }catch(err){
+//         console.log(err);
+//     }
+// }
+// showNInOpt();
+//.....................................................................
+
+
+
+//.....................................................................
+// logical operator in mongoose ($and, $or, $nor, $not)
+
+//and
+//show document whose duration is 4.5 and singer is Drake
+// const andOpt = async () => {
+//     try{
+//         const res = await Playlist.find( {$and: [{Duration : 4.5}, {Singer : "Drake"}] } )
+//         console.log(res);
+//     }catch(err){
+//         console.log(err);
+//     }
+// }
+// andOpt();
+
+// const orOpt = async () => {
+//     try{
+//         const res = await Playlist.find( {$or: [{Duration : 4.5}, {Singer : "Drake"}] } )
+//         console.log(res);
+//     }catch(err){
+//         console.log(err);
+//     }
+// }
+// orOpt();
