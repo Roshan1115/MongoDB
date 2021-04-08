@@ -209,3 +209,49 @@ const Playlist = new mongoose.model("Playlist", playlistSchema)
 //     }
 // }
 // orOpt();
+//.....................................................................
+
+
+
+
+//.....................................................................
+//find the counts of the document present in playlist
+// const findcount = async () => {
+//     try{
+//         const res = await Playlist.find().countDocuments()
+//         console.log(res);
+//     }catch(e){
+//         console.log(e);
+//     }
+// }
+// findcount();
+
+//find the document with alphabatical order wrt name field
+// const findAlphaname = async () => {
+//     try{
+//         const res = await Playlist.find().sort({Name: 1})
+//         console.log(res);
+//     }catch(e){
+//         console.log(e);
+//     }
+// }
+// findAlphaname();
+//.....................................................................
+
+
+
+
+//.....................................................................
+//update the time duration of attention song by its id
+// const updateDocument = async (id) => {
+//     try{
+//         const res = await Playlist.updateOne(
+//         {_id: id},
+//         {$set : {Duration: 3.7}}
+//     )
+//     console.log(res);
+//         }catch(e){
+//             console.log(e);
+//         }
+// }
+// updateDocument("606c00bf4158326390c41d39");
