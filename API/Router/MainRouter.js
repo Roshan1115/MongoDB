@@ -81,7 +81,7 @@ router.get('/student/:id', async (req,res) => {
 //..........................................................
 //update documents by its id
 
-//patch will update the whole documen not field
+//patch will update the particular field not the whole document
 router.patch('/student/:id', async (req,res) => {
   try{
     const _id = req.params.id
