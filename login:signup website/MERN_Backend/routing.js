@@ -4,6 +4,7 @@ const path = require("path")
 const userCollecion = require("./db/registers")
 const bcrypt = require("bcryptjs")
 
+
 const static_path = path.join(__dirname, '..//frontend')
 router.use(express.static(static_path)) 
 
