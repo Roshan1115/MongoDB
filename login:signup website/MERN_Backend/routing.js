@@ -5,6 +5,7 @@ const userCollecion = require("./db/registers")
 const bcrypt = require("bcryptjs")
 
 
+
 const static_path = path.join(__dirname, '..//frontend')
 router.use(express.static(static_path)) 
 
@@ -31,6 +32,13 @@ router.post('/signup', async (req, res) => {
         email: req.body.email,
         password: req.body.password,
         confirmPassword: req.body.re_password     })
+
+          //....middle ware bcrypt.js used defined in register.js whjich runs before saving..........
+
+          //....another middle ware JWT token we ganna use which is used in register.js
+          const token = await data.generateAuthToken();
+          console.log(token);
+
         
         const result = await data.save() 
         res.sendFile(static_path + '/home.html')
@@ -40,6 +48,7 @@ router.post('/signup', async (req, res) => {
       }
 
   }catch(e){
+    console.log(e);
     res.status(400).sendFile(static_path + "/signinErr.html")
   }
 })

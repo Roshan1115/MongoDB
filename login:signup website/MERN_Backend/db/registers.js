@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const bcrypt = require("bcryptjs")    //for hashing
-
+const jwt = require("jsonwebtoken")
 
 const UserSchema = new mongoose.Schema({
   name: String,
@@ -12,8 +12,29 @@ const UserSchema = new mongoose.Schema({
   confirmPassword:{
     type:String,
     minlength: 8
-  }
+  },
+  tokens:[{
+    token:{
+      type:String,
+      require:true
+    }
+  }]
 })
+
+// Generate Auth token middle ware run before saving data
+UserSchema.methods.generateAuthToken = async function(){
+  try{
+    const tokenGen = jwt.sign({_id: this._id.toString()}, "mynameisroshanbishiIstudyinamityuniversitychhatisgarh")
+
+    this.tokens = this.tokens.concat({token: tokenGen})
+    await this.save();
+    return tokenGen;
+    
+  }catch(e){
+    console.log(e);
+  }
+}
+
 
 // using schemaName.pre(event, function)
 //it will work before the evnnt
