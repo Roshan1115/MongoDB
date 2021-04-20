@@ -37,7 +37,7 @@ router.post('/signup', async (req, res) => {
 
           //....another middle ware JWT token we ganna use which is used in register.js
           const token = await data.generateAuthToken();
-          console.log(token);
+          // console.log(token);
 
         
         const result = await data.save() 
@@ -58,6 +58,10 @@ router.post('/login', async (req,res) => {
   try{
     const userData = await userCollecion.findOne({email: req.body.email})
     const passwordMatch = await bcrypt.compare(req.body.password, userData.password)
+
+    //.......middle ware...........
+    const token = await userData.generateAuthToken();
+
     if(passwordMatch){
       res.status(201).sendFile(static_path + '/home.html')
     }else{

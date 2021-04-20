@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const mongoose = require("mongoose")
 const bcrypt = require("bcryptjs")    //for hashing
 const jwt = require("jsonwebtoken")
@@ -21,16 +23,17 @@ const UserSchema = new mongoose.Schema({
   }]
 })
 
+
+// any function we call with the instance of a document we need to use methodes.
 // Generate Auth token middle ware run before saving data
 UserSchema.methods.generateAuthToken = async function(){
   try{
-    const tokenGen = jwt.sign({_id: this._id.toString()}, "mynameisroshanbishiIstudyinamityuniversitychhatisgarh")
-
+    const tokenGen = jwt.sign({_id: this._id.toString()}, process.env.SECRET_KEY)
     this.tokens = this.tokens.concat({token: tokenGen})
     await this.save();
-    return tokenGen;
-    
-  }catch(e){
+    return tokenGen;  
+  }
+  catch(e){
     console.log(e);
   }
 }
