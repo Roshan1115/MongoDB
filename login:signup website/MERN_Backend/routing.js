@@ -34,12 +34,18 @@ router.post('/signup', async (req, res) => {
         confirmPassword: req.body.re_password     })
 
           //....middle ware bcrypt.js used defined in register.js whjich runs before saving..........
-
           //....another middle ware JWT token we ganna use which is used in register.js
           const token = await data.generateAuthToken();
-          // console.log(token);
 
+        // res.cookie() func is used to set cookie name to value
+        //value param can be string or object converted to JSON.
+        //res.cookie( name, value, {optional})
+          res.cookie('jwt', token, {
+            expires: new Date(Date.now() + 30000), //30 sec expiration
+            httpOnly: true
+          });
         
+
         const result = await data.save() 
         res.sendFile(static_path + '/home.html')
 
@@ -53,6 +59,8 @@ router.post('/signup', async (req, res) => {
   }
 })
 
+
+
 //log in user
 router.post('/login', async (req,res) => {
   try{
@@ -61,6 +69,11 @@ router.post('/login', async (req,res) => {
 
     //.......middle ware...........
     const token = await userData.generateAuthToken();
+
+    res.cookie('jwt', token, {
+      expires: new Date(Date.now() + 30000),
+      httpOnly: true
+          });
 
     if(passwordMatch){
       res.status(201).sendFile(static_path + '/home.html')
