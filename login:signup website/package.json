@@ -1,5 +1,5 @@
 {
-  "name": "verzeo_online_shopping_system",
+  "name": "form_registration",
   "version": "1.0.0",
   "description": "This is a online shopping system developed for the major projeect for verzeo",
   "main": "index.js",
@@ -16,6 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",

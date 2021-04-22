@@ -3,13 +3,15 @@ const router = express.Router()
 const path = require("path")
 const userCollecion = require("./db/registers")
 const bcrypt = require("bcryptjs")
-
+const cookieParser = require("cookie-parser")
+const auth = require("./middle ware/Auth")
 
 
 const static_path = path.join(__dirname, '..//frontend')
 router.use(express.static(static_path)) 
 
 router.use(express.json())
+router.use(cookieParser());
 router.use(express.urlencoded({extended:false}))
 
 router.get('/', (req,res) => {
@@ -19,6 +21,11 @@ router.get('/', (req,res) => {
 router.get('/signup', (req,res) => {
   res.sendFile(static_path + '/signUp.html')
 })
+
+//prevent user fromm direcctly accessing home.html without login or sign yup
+// router.get('/home.html', auth, (req,res) => {
+//     res.sendFile(static_path + '/home.html')
+// })
 
 //Signup new user
 router.post('/signup', async (req, res) => {
@@ -42,7 +49,7 @@ router.post('/signup', async (req, res) => {
         //res.cookie( name, value, {optional})
           res.cookie('jwt', token, {
             expires: new Date(Date.now() + 30000), //30 sec expiration
-            httpOnly: true
+            httpOnly: true //user can't remove it anymore.
           });
         
 
@@ -67,7 +74,7 @@ router.post('/login', async (req,res) => {
     const userData = await userCollecion.findOne({email: req.body.email})
     const passwordMatch = await bcrypt.compare(req.body.password, userData.password)
 
-    //.......middle ware...........
+    //.......middle ware...........generate token
     const token = await userData.generateAuthToken();
 
     res.cookie('jwt', token, {
