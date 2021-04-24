@@ -17,7 +17,11 @@ router.use(cookieParser());
 router.use(express.urlencoded({extended:false}))
 
 router.get('/', (req,res) => {
-  res.send("you are inside the index.html file")  // It automatically look for index.html
+  res.redirect('/home')
+})
+
+router.get('/login' ,(req,res) => {
+  res.sendFile(static_path + '/login.html')
 })
 
 router.get('/signup', (req,res) => {
