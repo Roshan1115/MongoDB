@@ -80,7 +80,7 @@ router.post('/login', async (req,res) => {
     res.cookie('jwt', token, { httpOnly: true });
 
     if(passwordMatch){
-      res.status(200).redirect('/home.html')
+      res.status(200).redirect('/home')
     }else{
       res.status(400).sendFile(static_path + '/invalidLogin.html')
     }
