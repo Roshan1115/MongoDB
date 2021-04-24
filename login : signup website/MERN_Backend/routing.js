@@ -5,11 +5,13 @@ const userCollecion = require("./db/registers")
 const bcrypt = require("bcryptjs")
 const cookieParser = require("cookie-parser")
 const auth = require("./middle ware/Auth")
+const { rootCertificates } = require("tls")
 
 
 const static_path = path.join(__dirname, '..//frontend')
 router.use(express.static(static_path)) 
 
+// Middle ware
 router.use(express.json())
 router.use(cookieParser());
 router.use(express.urlencoded({extended:false}))
@@ -22,10 +24,9 @@ router.get('/signup', (req,res) => {
   res.sendFile(static_path + '/signUp.html')
 })
 
-//prevent user fromm direcctly accessing home.html without login or sign yup
-// router.get('/home.html', auth, (req,res) => {
-//     res.sendFile(static_path + '/home.html')
-// })
+router.get('/home', auth,  (req, res) => {
+  res.sendFile(static_path + '/home.html')
+})
 
 //Signup new user
 router.post('/signup', async (req, res) => {
@@ -48,13 +49,12 @@ router.post('/signup', async (req, res) => {
         //value param can be string or object converted to JSON.
         //res.cookie( name, value, {optional})
           res.cookie('jwt', token, {
-            expires: new Date(Date.now() + 30000), //30 sec expiration
-            httpOnly: true //user can't remove it anymore.
+            httpOnly: true //user can't access from browser console.
           });
         
 
         const result = await data.save() 
-        res.sendFile(static_path + '/home.html')
+        res.redirect('/home')
 
       }else{
       return res.status(404).sendFile(static_path + '/PwNotMatching.html')
@@ -77,13 +77,10 @@ router.post('/login', async (req,res) => {
     //.......middle ware...........generate token
     const token = await userData.generateAuthToken();
 
-    res.cookie('jwt', token, {
-      expires: new Date(Date.now() + 30000),
-      httpOnly: true
-          });
+    res.cookie('jwt', token, { httpOnly: true });
 
     if(passwordMatch){
-      res.status(201).sendFile(static_path + '/home.html')
+      res.status(200).redirect('/home.html')
     }else{
       res.status(400).sendFile(static_path + '/invalidLogin.html')
     }
