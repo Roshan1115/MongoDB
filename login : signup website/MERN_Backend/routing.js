@@ -5,7 +5,7 @@ const userCollecion = require("./db/registers")
 const bcrypt = require("bcryptjs")
 const cookieParser = require("cookie-parser")
 const auth = require("./middle ware/Auth")
-const { rootCertificates } = require("tls")
+
 
 
 const static_path = path.join(__dirname, '..//frontend')
@@ -92,5 +92,21 @@ router.post('/login', async (req,res) => {
     res.status(400).sendFile(static_path + "/loginErr.html")
   }
 })
+
+// Log Out user
+router.get('/logout', auth, async (req, res) => {
+   try{
+    res.clearCookie("jwt")
+    await req.user.save()
+    res.redirect('/login')
+   }
+   catch(err){
+    console.log(err);
+    res.status(500).send(err)
+   }
+})
+
+
+
 
 module.exports = router

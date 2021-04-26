@@ -1,21 +1,26 @@
 const jwt = require("jsonwebtoken")
 const userCollection = require("../db/registers")
 
-const auth =  (req, res, next) => {
-  const token = req.cookies.jwt;
-  if(token){
-    jwt.verify(token, process.env.SECRET_KEY, (err, decodedToken) => {
-      if(err){
-        res.redirect('/login')
-      }
-      else{
-        next();
-      }
-    })
+const auth = async (req, res, next) => {
+  try{
+    const token = req.cookies.jwt;
+    const user = jwt.verify(token, process.env.SECRET_KEY)
+    // console.log(user);
+    const userData = await userCollection.findById(user._id);
+    // console.log(userData);
+
+    req.token = token;
+    req.user = userData;
+
+    // console.log(req.token);
+    // console.log(req.user);
+    next();
   }
-  else{
-    res.redirect('/login');
+  catch(err){
+    // console.log(err);
+    res.redirect('/login')
   }
+  
 }
 
 module.exports = auth ;
