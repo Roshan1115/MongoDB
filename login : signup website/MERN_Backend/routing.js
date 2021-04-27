@@ -96,8 +96,13 @@ router.post('/login', async (req,res) => {
 // Log Out user
 router.get('/logout', auth, async (req, res) => {
    try{
+    
+    //line responsible for complete log out
+    req.user.tokens = [];
+
     res.clearCookie("jwt")
     await req.user.save()
+    // console.log(req.user);
     res.redirect('/login')
    }
    catch(err){
