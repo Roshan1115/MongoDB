@@ -28,7 +28,8 @@ router.get('/signup', (req,res) => {
   res.sendFile(static_path + '/signUp.html')
 })
 
-router.get('/home', auth,  (req, res) => {
+ // that auth is responsivle for route protection
+router.get('/home', auth,  (req, res) => {   
   res.sendFile(static_path + '/home.html')
 })
 
